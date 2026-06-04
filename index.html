@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ruang Tunggu Virtual</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0b1a43,#18367d,#22479b);
+min-height:100vh;
+color:#fff;
+padding:30px 20px 80px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+text-align:center;
+}
+
+.logo{
+width:130px;
+display:block;
+margin:0 auto 25px;
+}
+
+.icon-box{
+width:120px;
+height:120px;
+margin:auto;
+border-radius:30px;
+background:rgba(80,130,255,.15);
+display:flex;
+justify-content:center;
+align-items:center;
+backdrop-filter:blur(15px);
+margin-bottom:25px;
+}
+
+.icon-box svg{
+width:60px;
+height:60px;
+fill:#5ea1ff;
+}
+
+h1{
+font-size:clamp(2.2rem,5vw,3.5rem);
+font-weight:700;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:1.15rem;
+opacity:.85;
+margin-bottom:35px;
+}
+
+.wait-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:35px;
+padding:40px 25px;
+backdrop-filter:blur(20px);
+margin-bottom:35px;
+}
+
+.loader{
+width:90px;
+height:90px;
+margin:auto;
+margin-bottom:25px;
+border-radius:50%;
+border:8px solid rgba(255,255,255,.15);
+border-top:8px solid #5ea1ff;
+animation:spin 1s linear infinite;
+}
+
+.wait-title{
+font-size:2rem;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.wait-text{
+font-size:1.05rem;
+line-height:1.8;
+opacity:.8;
+}
+
+.info{
+background:rgba(0,255,170,.08);
+border:1px solid rgba(0,255,170,.25);
+border-radius:25px;
+padding:30px;
+text-align:left;
+line-height:1.9;
+font-size:1rem;
+color:#7fffd4;
+margin-bottom:35px;
+}
+
+.message{
+font-size:1.1rem;
+line-height:2;
+opacity:.9;
+margin-bottom:35px;
+}
+
+.note{
+font-size:1rem;
+line-height:1.9;
+opacity:.75;
+margin-bottom:40px;
+}
+
+.reload{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
+border-radius:25px;
+padding:25px;
+max-width:600px;
+margin:auto;
+backdrop-filter:blur(15px);
+}
+
+.reload-title{
+font-size:1.15rem;
+margin-bottom:10px;
+}
+
+#timer{
+font-size:3rem;
+font-weight:800;
+margin:10px 0;
+}
+
+.small{
+opacity:.8;
+font-size:.95rem;
+margin-top:10px;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.fade{
+animation:fade .7s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+</head>
+<body>
+
+<div class="container fade">
+
+<img src="logo-event.png" class="logo" alt="Logo Event">
+
+<div class="icon-box">
+
+<svg viewBox="0 0 24 24">
+<path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm1 11.59 3.71 3.7-1.42 1.42L11 13V6h2z"/>
+</svg>
+
+</div>
+
+<h1>Ruang Tunggu Virtual</h1>
+
+<div class="subtitle">
+Harap bersabar, kamu hampir sampai!
+</div>
+
+<div class="wait-card">
+
+<div class="loader"></div>
+
+<div class="wait-title">
+Kamu sedang dalam antrean
+</div>
+
+<div class="wait-text">
+Mohon tunggu, kamu akan otomatis masuk saat giliranmu tiba.
+</div>
+
+</div>
+
+<div class="info">
+
+✔ Tidak ada yang salah — kamu berhasil masuk ke sistem kami dan sedang dalam antrean.
+
+<br><br>
+
+Ini adalah langkah normal untuk memastikan seluruh pengguna mendapatkan pelayanan terbaik dan pengalaman pendaftaran yang lancar.
+
+</div>
+
+<div class="message">
+
+Kami berkomitmen memberikan pengalaman pendaftaran yang menyenangkan dan lancar bagi setiap peserta.
+
+<br><br>
+
+Terima kasih atas semangat dan kesabaranmu.
+
+</div>
+
+<div class="note">
+
+Halaman ini otomatis memuat ulang saat giliranmu tiba.
+
+<br>
+
+Tetap berada di halaman ini agar posisi antrean tidak hilang.
+
+</div>
+
+<div class="reload">
+
+<div class="reload-title">
+Memuat ulang dalam
+</div>
+
+<div id="timer">30</div>
+
+<div class="small">
+Kamu akan otomatis diarahkan ke halaman pendaftaran.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let time = 30;
+
+const timer = document.getElementById("timer");
+
+const countdown = setInterval(()=>{
+
+time--;
+
+timer.innerHTML = time;
+
+if(time <= 0){
+
+clearInterval(countdown);
+
+window.location.href =
+"https://qrispurwokertorun.carrd.co";
+
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>
